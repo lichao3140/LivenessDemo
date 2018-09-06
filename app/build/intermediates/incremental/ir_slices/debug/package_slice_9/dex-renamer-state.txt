@@ -1,0 +1,4 @@
+#Thu Sep 06 11:38:19 CST 2018
+base.0=F\:\\mywork\\Algorithm\\Liveness_Android_V1.0_beta\\samplecode\\LivenessDemo\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
+path.0=classes.dex
+renamed.0=classes.dex
