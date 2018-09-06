@@ -44,13 +44,10 @@ public class ImageUtils {
 
                 yuv420sp[yIndex++] = (byte) ((Y < 0) ? 0 : ((Y > 255) ? 255 : Y));
 
-
                 if (j % 2 == 0 && index % 2 == 0 && uvIndex < yuv420sp.length - 2) {
                     yuv420sp[uvIndex++] = (byte) ((V < 0) ? 0 : ((V > 255) ? 255 : V));
                     yuv420sp[uvIndex++] = (byte) ((U < 0) ? 0 : ((U > 255) ? 255 : U));
                 }
-
-
                 index++;
             }
         }

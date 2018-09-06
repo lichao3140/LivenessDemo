@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnVideo = findViewById(R.id.btn_video);
         fdEngine = new AFD_FSDKEngine();
         livenessEngine = new LivenessEngine();
+
         btnActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,

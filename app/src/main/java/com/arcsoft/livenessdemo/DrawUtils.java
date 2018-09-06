@@ -8,6 +8,17 @@ import android.hardware.Camera;
 
 class DrawUtils {
 
+    /**
+     * 相机自动调整角度
+     * @param oldRect
+     * @param previewWidth
+     * @param previewHeight
+     * @param canvasWidth
+     * @param canvasHeight
+     * @param cameraOri
+     * @param mCameraId
+     * @return
+     */
     static Rect adjustRect(Rect oldRect, int previewWidth, int previewHeight, int canvasWidth, int canvasHeight, int cameraOri, int mCameraId) {
         if (oldRect == null) {
             return null;
@@ -78,6 +89,13 @@ class DrawUtils {
         return newRect;
     }
 
+    /**
+     * 绘制脸的方框
+     * @param canvas
+     * @param rect
+     * @param color
+     * @param faceRectThickness
+     */
     static void drawFaceRect(Canvas canvas, Rect rect, int color, int faceRectThickness) {
         if (canvas == null || rect == null) {
             return;

@@ -1,0 +1,34 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.idea/workspace.xml
+app/build/generated/assets/
+app/build/generated/res/resValues/
+app/build/generated/res/rs/
+app/build/generated/source/aidl/
+app/build/generated/source/apt/
+app/build/generated/source/rs/
+app/build/intermediates/assets/
+app/build/intermediates/builds/
+app/build/intermediates/check-manifest/
+app/build/intermediates/incremental/InstantRunDependenciesApkBuilder/
+app/build/intermediates/incremental/InstantRunSliceSplitApkBuilder/
+app/build/intermediates/incremental/mergeDebugResources/aapt-temp/
+app/build/intermediates/incremental/mergeDebugResources/stripped.dir/
+app/build/intermediates/incremental/processDebugResources/
+app/build/intermediates/incremental/validateSigningDebug/
+app/build/intermediates/lint/
+app/build/intermediates/prebuild/
+app/build/intermediates/reload-dex/
+app/build/intermediates/resources/
+app/build/intermediates/rs/
+app/build/intermediates/shaders/
+app/build/intermediates/transforms/dexMerger/debug/15/
+app/build/intermediates/transforms/instantRun/debug/1/
+app/build/tmp/
