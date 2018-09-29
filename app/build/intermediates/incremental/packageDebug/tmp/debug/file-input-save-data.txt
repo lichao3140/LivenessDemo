@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Sep 06 13:43:29 CST 2018
+#Wed Sep 19 14:36:25 CST 2018
 4.path=lib/armeabi-v7a/libArcSoft_FTEngine.so
 8.set=DEX
 6.path=classes.dex

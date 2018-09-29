@@ -19,6 +19,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.arcsoft.facetracking.AFT_FSDKEngine;
 import com.arcsoft.facetracking.AFT_FSDKError;
 import com.arcsoft.facetracking.AFT_FSDKFace;
@@ -26,12 +27,10 @@ import com.arcsoft.liveness.ErrorInfo;
 import com.arcsoft.liveness.FaceInfo;
 import com.arcsoft.liveness.LivenessEngine;
 import com.arcsoft.liveness.LivenessInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 视频活体人脸检测
- */
 public class VideoSampleActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
     private static final String TAG = VideoSampleActivity.class.getSimpleName();
@@ -44,7 +43,7 @@ public class VideoSampleActivity extends AppCompatActivity implements SurfaceHol
     private int mHeight;
     private SurfaceHolder holder;
     private TextView txtScore;
-    private int cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT; //前置摄像头
+    private int cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private int cameraOri = 0;
 
     @Override
@@ -63,7 +62,7 @@ public class VideoSampleActivity extends AppCompatActivity implements SurfaceHol
 
         //活体引擎初始化(视频)
         arcFaceEngine = new LivenessEngine();
-        ErrorInfo error = arcFaceEngine.initEngine(LivenessEngine.AL_DETECT_MODE_VIDEO);
+        ErrorInfo error = arcFaceEngine.initEngine(this, LivenessEngine.AL_DETECT_MODE_VIDEO);
         if(error.getCode() != 0) {
             toast("活体初始化失败，errorcode：" + error.getCode());
             return;
@@ -106,7 +105,8 @@ public class VideoSampleActivity extends AppCompatActivity implements SurfaceHol
             return;
         }
         //选择摄像头ID
-        camera = Camera.open(cameraId);
+        //camera = Camera.open(cameraId);
+        camera = Camera.open(0);
         try {
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);

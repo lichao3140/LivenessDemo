@@ -72,7 +72,7 @@ MERGED from [com.android.support.constraint:constraint-layout:1.1.2] C:\Users\Ad
 activity#com.arcsoft.livenessdemo.MainActivity
 ADDED from F:\mywork\Algorithm\Liveness_Android_V1.0_beta\samplecode\LivenessDemo\app\src\main\AndroidManifest.xml:19:9-26:20
 	android:screenOrientation
-		ADDED from F:\mywork\Algorithm\Liveness_Android_V1.0_beta\samplecode\LivenessDemo\app\src\main\AndroidManifest.xml:20:13-50
+		ADDED from F:\mywork\Algorithm\Liveness_Android_V1.0_beta\samplecode\LivenessDemo\app\src\main\AndroidManifest.xml:20:13-49
 	android:name
 		ADDED from F:\mywork\Algorithm\Liveness_Android_V1.0_beta\samplecode\LivenessDemo\app\src\main\AndroidManifest.xml:19:19-47
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER

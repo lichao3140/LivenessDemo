@@ -1,10 +1,12 @@
 package com.arcsoft.livenessdemo;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +24,7 @@ import com.arcsoft.liveness.FaceInfo;
 import com.arcsoft.liveness.LivenessEngine;
 import com.arcsoft.liveness.LivenessInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -41,22 +44,23 @@ public class MainActivity extends AppCompatActivity {
         Button btnVideo = findViewById(R.id.btn_video);
         fdEngine = new AFD_FSDKEngine();
         livenessEngine = new LivenessEngine();
-
         btnActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Executors.newSingleThreadExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
-                        final long activeCode = livenessEngine.activeEngine(Constants.LIVENESSAPPID,
+                        final long activeCode = livenessEngine.activeEngine(MainActivity.this,Constants.LIVENESSAPPID,
                                 Constants.LIVENESSSDKKEY).getCode();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(activeCode != ErrorInfo.MOK) {
-                                    toast("活体引擎激活失败，errorcode：" + activeCode);
-                                } else {
+                                if(activeCode == ErrorInfo.MOK) {
                                     toast("活体引擎激活成功");
+                                } else if(activeCode == ErrorInfo.MERR_AL_BASE_ALREADY_ACTIVATED){
+                                    toast("活体引擎已激活");
+                                } else {
+                                    toast("活体引擎激活失败，errorcode：" + activeCode);
                                 }
                             }
                         });
@@ -64,28 +68,18 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
         btnImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 detectImg();
             }
         });
-
         btnVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, VideoSampleActivity.class));
             }
         });
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission_group.STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //活体引擎初始化（图片）
-        ErrorInfo error = livenessEngine.initEngine(LivenessEngine.AL_DETECT_MODE_IMAGE);
+        ErrorInfo error = livenessEngine.initEngine(this, LivenessEngine.AL_DETECT_MODE_IMAGE);
         if(error.getCode() != ErrorInfo.MOK) {
             toast("活体初始化失败，errorcode：" + error.getCode());
             //FD引擎销毁
@@ -119,8 +113,22 @@ public class MainActivity extends AppCompatActivity {
             unInitEngine();
             return;
         }
-        final int width = mHeadBmp.getWidth();
-        final int height = mHeadBmp.getHeight();
+        int width = mHeadBmp.getWidth();
+        int height = mHeadBmp.getHeight();
+
+        boolean needAdjust = false;
+        if (width % 2 != 0) {
+            width--;
+            needAdjust = true;
+        }
+        if (height % 2 != 0) {
+            height--;
+            needAdjust = true;
+        }
+        if (needAdjust) {
+            mHeadBmp = ImageUtils.imageCrop(mHeadBmp, new Rect(0, 0, width, height));
+        }
+
         final byte[] nv21Data = ImageUtils.getNV21(width, height, mHeadBmp);
         List<AFD_FSDKFace> fdFaceList = new ArrayList<>();
         //图片FD检测人脸
@@ -172,5 +180,4 @@ public class MainActivity extends AppCompatActivity {
     private void toast(String content) {
         Toast.makeText(this, content, Toast.LENGTH_LONG).show();
     }
-
 }
